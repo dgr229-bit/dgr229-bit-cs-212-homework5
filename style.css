@@ -1,0 +1,306 @@
+/* =========================================================
+   BASE / RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: lightgray;
+  line-height: 1.5;
+}
+
+/* Smooth scrolling + prevent anchor jumps under fixed header */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================================================
+   PAGE GRID (Mobile First)
+   ========================================================= */
+
+.page-grid {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;   /* mobile */
+  grid-template-rows: auto auto 1fr auto;
+  gap: 1rem;
+
+  /* leave room for fixed header & footer */
+  padding: 1rem;
+  padding-top: 95px;
+  padding-bottom: 70px;
+}
+
+/* =========================================================
+   HEADER (FIXED)
+   ========================================================= */
+
+.header {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 1000;
+  margin: 0.75rem;
+}
+
+/* Prevent tiny “layout shift” feeling with fixed header/footer + margins */
+.header,
+.footer {
+  width: calc(100% - 1.5rem); /* accounts for 0.75rem left + 0.75rem right margin */
+}
+
+/* =========================================================
+   SIDEBAR NAV (FLEXBOX)
+   ========================================================= */
+
+.sidebar {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; /* evenly spaced */
+  align-items: stretch;
+  gap: 0.5rem;
+
+  min-height: 300px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  color: black;
+  background-color: #f2f2f2;
+
+  flex-grow: 1;                  /* equal space links */
+  display: flex;                 /* center text inside */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sidebar a:hover {
+  opacity: 0.85;
+}
+
+/* Resume button */
+.resume-btn {
+  margin-top: 0.75rem;
+  display: inline-block;
+  text-align: center;
+
+  background: #222;
+  color: white;
+
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+
+  transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+}
+
+.resume-btn:hover {
+  transform: translateY(-2px);
+  background-color: #000;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================================
+   MAIN CONTENT (FLEXBOX)
+   ========================================================= */
+
+.main {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.main section {
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  /* Helps when clicking nav links so headings aren’t hidden behind fixed header */
+  scroll-margin-top: 120px;
+}
+
+/* =========================================================
+   BREAKPOINTS
+   ========================================================= */
+
+@media (min-width: 480px) {
+  .page-grid {
+    padding: 1.25rem;
+    padding-top: 100px;
+    padding-bottom: 75px;
+  }
+}
+
+@media (min-width: 768px) {
+  .page-grid {
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+  }
+
+  .sidebar {
+    grid-column: 1 / 2;
+  }
+
+  .main {
+    grid-column: 2 / 3;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-top: 110px;
+    padding-bottom: 80px;
+  }
+
+  .main {
+    padding: 2rem;
+  }
+}
+
+/* =========================================================
+   SKILLS (GRID) + HOVER EFFECTS
+   ========================================================= */
+
+.skills-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+
+  grid-template-columns: 1fr; /* mobile */
+}
+
+@media (min-width: 768px) {
+  .skills-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Make some items span columns */
+.skill-wide {
+  grid-column: 1 / -1;
+}
+
+.skills-list li {
+  background-color: #f2f2f2;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.skills-list li:hover {
+  transform: scale(1.05) rotate(-0.5deg);
+  background-color: #e6e6e6;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================================================
+   PROJECT IMAGES (FLOAT + HOVER)
+   ========================================================= */
+
+.project-images img {
+  float: left;
+  width: 30%;
+  margin: 0 2% 1rem 0;
+  border-radius: 10px;
+
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.project-images img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Clear floats */
+.project-images::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* Mobile: stack images */
+@media (max-width: 767px) {
+  .project-images img {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+/* =========================================================
+   PROJECTS (GRID)
+   ========================================================= */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;   /* mobile */
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-card {
+  background: #f2f2f2;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================================================
+   FOOTER (FIXED)
+   ========================================================= */
+
+.footer {
+  background: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: 0.75rem;
+  text-align: center;
+}
